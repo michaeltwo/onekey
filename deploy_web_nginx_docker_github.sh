@@ -19,7 +19,8 @@ mkdir /usr/local/server/nginx
 #pulling conf and web,如果打包，则用这个
 git clone https://gitee.com/michaeltwo/jjconf.git
 cd jjconf
-tar -zxvf jjconf.tar.gz -C /usr/local/server/nginx
+mkdir /usr/local/server/nginx/jjconf
+tar -zxvf jjconf.tar.gz -C /usr/local/server/nginx/jjconf
 
 git clone https://gitee.com/michaeltwo/jjweb.git
 cp -r jjweb /usr/local/server/nginx
