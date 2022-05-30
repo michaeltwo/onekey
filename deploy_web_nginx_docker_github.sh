@@ -1,9 +1,9 @@
 #!/bin/sh
 #===安装docker-ce以及配置===
-wget https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo -O /etc/yum.repos.d/docker-ce.repo
+wget --no-check-certificate https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo -O /etc/yum.repos.d/docker-ce.repo
 yum install -y yum-utils device-mapper-persistent-data lvm2
 yum-config-manager --add-repo  https://download.docker.com/linux/centos/docker-ce.repo
-yum install docker-ce
+yum install -y docker-ce
 systemctl start docker && systemctl enable docker
 # completion of command, optional 
 #yum -y install bash-completion
@@ -11,6 +11,8 @@ systemctl start docker && systemctl enable docker
 #===拉取镜像===
 docker pull nginx
 #创建配置文件path和WWW path
+mkdir /usr/local/server
+mkdir /usr/local/server/nginx
 mkdir /usr/local/server/nginx/conf && mkdir /usr/local/server/nginx/www
 
 #由于github网速不稳定，使用循环判断，直到生成文件才停止
