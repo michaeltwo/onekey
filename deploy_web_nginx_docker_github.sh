@@ -13,7 +13,7 @@ docker pull nginx
 #创建配置文件path和WWW path
 mkdir /usr/local/server
 mkdir /usr/local/server/nginx
-mkdir /usr/local/server/nginx/conf && mkdir /usr/local/server/nginx/www
+#mkdir /usr/local/server/nginx/conf && mkdir /usr/local/server/nginx/www
 
 #由于github网速不稳定，使用循环判断，直到生成文件才停止
 #拉取github的nginx conf到相应的目录
@@ -22,19 +22,19 @@ do
 echo "pulling github config"
 git clone https://github.com/michaeltwo/conf.git
 cd conf
-tar -zxvf conf.tar.gz -C /usr/local/server/nginx/conf
+tar -zxvf conf.tar.gz -C /usr/local/server/nginx
 done
 #同样原理拉取github中得web文件
-until [ -f /usr/local/server/nginx/www/index.html ]
+until [ -f /usr/local/server/nginx/jjwww/index.html ]
 do 
 echo "pulling github web"
 git clone https://github.com/michaeltwo/jjweb.git
 cd jjweb
-tar -zxvf jjweb.tar.gz -C /usr/local/server/nginx/www
+tar -zxvf jjweb.tar.gz -C /usr/local/server/nginx
 done
 
 #运行docker container WITH nginx images, 使用--restart=always跟随宿主启动
-docker run -dit --name=nginx -p 80:80 -p 443:443 -v /usr/local/server/nginx/conf/:/etc/nginx -v /usr/local/server/nginx/www:/usr/share/nginx/html --restart=always nginx
+docker run -dit --name=nginx -p 80:80 -p 443:443 -v /usr/local/server/nginx/conf/:/etc/nginx -v /usr/local/server/nginx/www:/usr/share/nginx/jjweb --restart=always nginx
 
 
 #如果遇到问题则跑一遍新docker nginx并拷贝配置文件和共享文件到本地，以下为拷贝命令
