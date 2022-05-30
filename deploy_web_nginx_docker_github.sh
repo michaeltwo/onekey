@@ -34,7 +34,7 @@ tar -zxvf jjweb.tar.gz -C /usr/local/server/nginx
 done
 
 #运行docker container WITH nginx images, 使用--restart=always跟随宿主启动
-docker run -dit --name=nginx -p 80:80 -p 443:443 -v /usr/local/server/nginx/conf/:/etc/nginx -v /usr/local/server/nginx/www:/usr/share/nginx/jjweb --restart=always nginx
+docker run -dit --name=nginx -p 80:80 -p 443:443 -v /usr/local/server/nginx/conf/:/etc/nginx -v /usr/local/server/nginx/jjwww:/usr/share/nginx/html --restart=always nginx
 
 
 #如果遇到问题则跑一遍新docker nginx并拷贝配置文件和共享文件到本地，以下为拷贝命令
