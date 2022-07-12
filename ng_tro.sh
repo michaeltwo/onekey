@@ -21,14 +21,13 @@ git clone https://github.com/michaeltwo/jjweb.git
 git clone https://github.com/michaeltwo/nginx_sni.git
 # 5. certificate app & get certificates in folder /etc/letsencrypt/live
 yum -y install snapd
-sudo systemctl enable --now snapd.socket
-sudo ln -s /var/lib/snapd/snap /snap
-sudo snap install core; sudo snap refresh core
-sudo snap install --classic certbot
-sudo ln -s /snap/bin/certbot /usr/bin/certbot
-sudo certbot certonly --standalone -d www.dt-jj.com  -m weihua.zheng@Hotmail.com --agree-tos
-
-sudo certbot certonly --standalone -d tro.dt-jj.com -m weihua.zheng@Hotmail.com --agree-tos
+systemctl enable --now snapd.socket
+ln -s /var/lib/snapd/snap /snap
+snap install core; sudo snap refresh core
+snap install --classic certbot
+ln -s /snap/bin/certbot /usr/bin/certbot
+certbot certonly --standalone -d www.dt-jj.com  -m weihua.zheng@Hotmail.com --agree-tos
+certbot certonly --standalone -d tro.dt-jj.com -m weihua.zheng@Hotmail.com --agree-tos
 # 6. reallocate conf files & start dockers
  cd nginx_sni
  yes|cp nginx.conf /etc/nginx/
