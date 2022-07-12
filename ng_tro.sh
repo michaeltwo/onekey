@@ -21,13 +21,27 @@ git clone https://github.com/michaeltwo/jjweb.git
 git clone https://github.com/michaeltwo/nginx_sni.git
 # 5. certificate app & get certificates in folder /etc/letsencrypt/live
 yum -y install snapd
-systemctl enable --now snapd.socket
-ln -s /var/lib/snapd/snap /snap
-snap install core; sudo snap refresh core
-snap install --classic certbot
-ln -s /snap/bin/certbot /usr/bin/certbot
-certbot certonly --standalone -d www.dt-jj.com  -m weihua.zheng@Hotmail.com --agree-tos
-certbot certonly --standalone -d tro.dt-jj.com -m weihua.zheng@Hotmail.com --agree-tos
+echo "snapd installed"
+echo "enabling snapd.socket"
+sudo systemctl enable --now snapd.socket
+echo "---try to pause few seconds to create ln--"
+echo "please see the warnings if any questions"
+sudo ln -s /var/lib/snapd/snap /snap
+echo "---try to pause few seconds to create ln--"
+echo "ln created,pls see any warnings, if any questions"
+sudo snap install core; sudo snap refresh core
+echo "---try to pause few seconds to refresh core--"
+echo "ln created,pls see any warnings, if any questions"
+sudo snap install --classic certbot
+echo "---try to pause few seconds to create ln--"
+echo "ln created,pls see any warnings, if any questions"
+sudo ln -s /snap/bin/certbot /usr/bin/certbot
+echo "---try to pause few seconds to create ln--"
+echo "ln created,pls see any warnings, if any questions"
+echo "creating first certificate, please type 'Y'"
+sudo certbot certonly --standalone -d www.dt-jj.com  -m weihua.zheng@Hotmail.com --agree-tos
+echo "creating second certificate"
+sudo certbot certonly --standalone -d tro.dt-jj.com -m weihua.zheng@Hotmail.com --agree-tos
 # 6. reallocate conf files & start dockers
  cd nginx_sni
  yes|cp nginx.conf /etc/nginx/
