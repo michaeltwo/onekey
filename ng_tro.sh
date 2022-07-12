@@ -26,7 +26,9 @@ sudo ln -s /var/lib/snapd/snap /snap
 sudo snap install core; sudo snap refresh core
 sudo snap install --classic certbot
 sudo ln -s /snap/bin/certbot /usr/bin/certbot
-sudo certbot certonly --standalone -d www.dt-jj.com -d tro.dt-jj.com -m weihua.zheng@Hotmail.com --agree-tos
+sudo certbot certonly --standalone -d www.dt-jj.com  -m weihua.zheng@Hotmail.com --agree-tos
+
+sudo certbot certonly --standalone -d tro.dt-jj.com -m weihua.zheng@Hotmail.com --agree-tos
 # 6. reallocate conf files & start dockers
  cd nginx_sni
  yes|cp nginx.conf /etc/nginx/
