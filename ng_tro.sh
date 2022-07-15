@@ -43,15 +43,18 @@ sudo certbot certonly --standalone -d www.dt-jj.com  -m weihua.zheng@Hotmail.com
 echo "creating second certificate"
 sudo certbot certonly --standalone -d tro.dt-jj.com -m weihua.zheng@Hotmail.com --agree-tos
 # 6. reallocate conf files & start dockers
- cd nginx_sni
- yes|cp nginx.conf /etc/nginx/
- mkdir /etc/trojan/
- yes|cp config.json /etc/trojan/
- # cp web files to relevant folder
- yes|cp -r /home/jjweb/* /usr/share/nginx/html/
- # start nginx
- systemctl start nginx.service && systemctl enable nginx.service
- # running trojan docker
+cd nginx_sni
+mkdir /etc/nginx/vhosts
+yes|cp nginx.conf /etc/nginx/
+yes|cp www.dt-jj.com.conf /etc/nginx/vhosts
+yes|cp dt-jj.com.conf /etc/nginx/vhosts
+mkdir /etc/trojan/
+yes|cp config.json /etc/trojan/
+# cp web files to relevant folder
+yes|cp -r /home/jjweb/* /usr/share/nginx/html/
+# start nginx
+systemctl start nginx.service && systemctl enable nginx.service
+# running trojan docker
 docker run -dit --privileged=true --name=trojan6 -p 10241:10241 -v /etc/letsencrypt/live/tro.dt-jj.com/fullchain.pem:/path/to/fullchain.pem -v /etc/letsencrypt/live/tro.dt-jj.com/privkey.pem:/path/to/privkey.pem -v /etc/trojan/config.json:/config/config.json fountain0/trojangfw:1.6
 
 
