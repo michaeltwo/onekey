@@ -24,23 +24,32 @@ yum -y install snapd
 echo "snapd installed"
 echo "enabling snapd.socket"
 sudo systemctl enable --now snapd.socket
-echo "---try to pause few seconds to create ln--"
-echo "please see the warnings if any questions"
+echo "---while confirm shell is done---"
+while [ $? -ne 0 ];
+do !!;
+done
 sudo ln -s /var/lib/snapd/snap /snap
-echo "---try to pause few seconds to create ln--"
-echo "ln created,pls see any warnings, if any questions"
+while [ $? -ne 0 ];
+do !!;
+done
 sudo snap install core; sudo snap refresh core
-echo "---try to pause few seconds to refresh core--"
-echo "ln created,pls see any warnings, if any questions"
+while [ $? -ne 0 ];
+do !!;
+done
 sudo snap install --classic certbot
-echo "---try to pause few seconds to create ln--"
-echo "ln created,pls see any warnings, if any questions"
+while [ $? -ne 0 ];
+do !!;
+done
 sudo ln -s /snap/bin/certbot /usr/bin/certbot
-echo "---try to pause few seconds to create ln--"
-echo "ln created,pls see any warnings, if any questions"
+while [ $? -ne 0 ];
+do !!;
+done
 echo "creating first certificate, please type 'Y'"
 sudo certbot certonly --standalone -d www.dt-jj.com  -m weihua.zheng@Hotmail.com --agree-tos
 echo "creating second certificate"
+while [ $? -ne 0 ];
+do !!;
+done
 sudo certbot certonly --standalone -d tro.dt-jj.com -m weihua.zheng@Hotmail.com --agree-tos
 # 6. reallocate conf files & start dockers
 cd nginx_sni
@@ -56,6 +65,15 @@ yes|cp -r /home/jjweb/* /usr/share/nginx/html/
 systemctl start nginx.service && systemctl enable nginx.service
 # running trojan docker
 docker run -dit --privileged=true --name=trojan6 -p 10241:10241 -v /etc/letsencrypt/live/tro.dt-jj.com/fullchain.pem:/path/to/fullchain.pem -v /etc/letsencrypt/live/tro.dt-jj.com/privkey.pem:/path/to/privkey.pem -v /etc/trojan/config.json:/config/config.json fountain0/trojangfw:1.6
-
+#if check everything is ok
+echo "---if to check last step is ok---NOTE:space"
+if [ $? -eq 0 ]
+then
+echo "success"
+else
+echo "failed!"
+exit 1
+fi
+#
 
 
