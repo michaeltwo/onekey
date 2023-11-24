@@ -59,4 +59,11 @@ else
 echo "failed!"
 exit 1
 fi
-# 6.certificate renew automatically, cortab
+# 6.certificate renewal automatically, crontab with cert_renewal.sh, not cert_renew.sh.https://www.iamwawa.cn/crontab.html. every 2 month per exec
+mkdir /etc/letsencrypt/cert_renew
+#git clone https://github.com/michaeltwo/onekey.git
+cp cert_renewal.sh /etc/letsencrypt/cert_renew
+chmod +x /etc/letsencrypt/cert_renew/cert_renewal.sh
+#crontab -e
+echo '0 0 12 */2 * /etc/letsencrypt/cert_renew/cert_renewal.sh > /dev/null 2>&1' /var/spool/cron/root
+systemctl restart crond
