@@ -59,3 +59,4 @@ else
 echo "failed!"
 exit 1
 fi
+# 6.certificate renew automatically, cortab
